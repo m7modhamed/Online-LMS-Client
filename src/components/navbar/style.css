@@ -1,0 +1,30 @@
+.login-section{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.login-section Button{
+    margin: 10px;
+    text-wrap: nowrap;
+}
+
+.login-section Typography{
+    margin: 10px;
+}
+
+a{
+ color: var(--text-color);
+}
+
+@media only screen and (max-width: 600px) {
+    .login-section .BusinessAccountButton {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .login-section .signupButton {
+        display: none;
+    }
+}

@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .container {
+    width: 80%;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    align-content: center;
+    margin: 75px auto;
+    gap: 50px;
+  }
+  
+  .info {
+    color: var(--text-color);
+    margin: 80px 0 0 0;
+    text-align: center;
+  }
+
+  .info h1{
+    text-shadow: 5px 2px 5px var(--primary-color);
+  }
+  
+
+  
+  .formContainer {
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    color: var(--text-color);
+    text-align: center;
+    padding: 20px 20px; 
+    overflow-x: hidden;
+    filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.8));
+  }
+
+  .formContainer h1{
+    margin-top: 15px;
+  }
+
+  .formContainer h4{
+    margin-top: 15px;
+  }
+  .formContainer form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; 
+    justify-content: center;
+    height: auto; 
+    margin-top: 25px;
+  }
+
+  .textFieldLabel {
+    color: var(--text-color) !important;
+  }
+  
+  .textFieldInput {
+    color: var(--text-color) !important;
+  }
+  
+  .textField {
+    width: 100%;
+    max-width: 400px; /* Limit the width of input fields */
+  }
+  
+  .link {
+    margin-top: 10px;
+    display: block;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  
+  .button {
+    margin-top: 20px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: .6s ease-in-out !important;
+  }
+  
+  .button:hover {
+    transform: scale(1.05);
+  }
+  

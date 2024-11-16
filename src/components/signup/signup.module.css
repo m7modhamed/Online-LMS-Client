@@ -1,0 +1,107 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 80%;  
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-content: center;
+  align-items: center;
+  margin: 75px auto 20px auto;
+  gap: 50px;
+}
+
+.info {
+  color: var(--text-color);
+  margin: 80px 0 0 0;
+  text-align: center;
+}
+
+.info h1{
+  text-shadow: 5px 2px 5px var(--primary-color);
+}
+
+.info Button {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 50px 0;
+  padding: 10px;
+  border-radius: 10px;
+  display: inline-block;
+  color: var(--text-color);
+  background-color: darkcyan;
+}
+
+.formContainer {
+  background-color: var(--primary-color);
+  border-radius: 15px;
+  color: var(--text-color);
+  text-align: center;
+  padding: 20px 15px;
+  overflow-x: hidden;
+  filter: drop-shadow(0px 30px 20px rgba(0, 0, 0, 0.8));
+  width: 100%;
+  /* max-width: 500px; */
+}
+.formContainer h1{
+  margin-top: 15px;
+}
+
+.formContainer h4{
+  margin-top: 15px;
+}
+.formContainer form {
+  margin: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.formContainer form *{
+  max-width: 250px;
+}
+
+
+
+.textFieldLabel {
+  color: var(--text-color) !important;
+}
+
+.textFieldInput {
+  color: var(--text-color) !important;
+}
+
+.MuiOutlinedInput-root {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+}
+
+.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+}
+
+.MuiInputLabel-root.Mui-focused {
+  color: white !important;
+}
+
+.MuiButton-contained {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+}
+
+
+.alertBox {
+  min-width: 250px;
+  max-width: 300px !important;
+  word-wrap: break-word;
+  margin: 10px auto;
+}
