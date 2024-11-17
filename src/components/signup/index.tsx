@@ -6,13 +6,13 @@ import { signupStudentAccount } from "../../api/UserServices";
 import { ValidationSchema } from "./validationSchema";
 
 export const SignUp = () => {
- 
   interface IUserData {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
     phoneNumber: string;
+    confirmPassword: string;
   }
 
   interface IUserDataError {
@@ -21,6 +21,7 @@ export const SignUp = () => {
     email?: string;
     password?: string;
     phoneNumber?: string;
+    confirmPassword?: string;
   }
 
   const initialState: IUserData = {
@@ -29,6 +30,7 @@ export const SignUp = () => {
     email: "",
     password: "",
     phoneNumber: "",
+    confirmPassword: "",
   };
 
   const [userData, setUserData] = useState<IUserData>(initialState);
@@ -39,7 +41,6 @@ export const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
 
   const resetform = () => {
     setUserData(initialState);
@@ -63,14 +64,16 @@ export const SignUp = () => {
   const onChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    //reset error message
+    setErrorMessage("");
+
     const { name, value } = event.target;
-  
+
     setUserData((prevUserData) => {
       const updatedUserData = { ...prevUserData, [name]: value };
-  
+
       // Validate the field on change using Yup schema
-      ValidationSchema
-        .validateAt(name, updatedUserData)
+      ValidationSchema.validateAt(name, updatedUserData)
         .then(() => {
           setUserDataError((prevUserDataError) => ({
             ...prevUserDataError,
@@ -83,22 +86,23 @@ export const SignUp = () => {
             [name]: err.message,
           }));
         });
-  
+
       return updatedUserData;
     });
   };
-  
-  
 
   const handleSubmit = async () => {
+    if (errorMessage) {
+      return;
+    }
     setErrorMessage("");
     setSuccessMessage("");
     setIsLoading(true);
-  
+
     try {
       // Validate using Yup schema
       await ValidationSchema.validate(userData, { abortEarly: false });
-  
+
       // Call API if validation passes
       const response = await signupStudentAccount(userData);
 
@@ -107,7 +111,7 @@ export const SignUp = () => {
       resetform();
     } catch (error: any) {
       setIsLoading(false);
-  
+
       // If it's a Yup validation error
       if (error.name === "ValidationError") {
         const errors: IUserDataError = {};
@@ -130,11 +134,7 @@ export const SignUp = () => {
       }
     }
   };
-  
 
-  
-  
-  
   return (
     <>
       <div className={styles.container}>
@@ -234,6 +234,24 @@ export const SignUp = () => {
               variant="outlined"
               error={!!userDataError.password}
               helperText={userDataError.password || ""}
+            />
+
+            <TextField
+              sx={inputStyles}
+              InputLabelProps={{
+                className: styles.textFieldLabel,
+              }}
+              InputProps={{ classes: { input: styles.textFieldInput } }}
+              type="password"
+              onChange={(event) => {
+                onChangeHandler(event);
+              }}
+              value={userData.confirmPassword}
+              name="confirmPassword"
+              label="Confirm Password"
+              variant="outlined"
+              error={!!userDataError.confirmPassword}
+              helperText={userDataError.confirmPassword || ""}
             />
 
             <TextField

@@ -23,6 +23,11 @@ export const ValidationSchema = Yup.object().shape({
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[\S]+$/,
         "Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and no whitespace"
       ),
+
+      confirmPassword: Yup.string()
+      .required('Confirm Password is required')
+      .oneOf([Yup.ref('password')], 'Passwords must match'),
+  
   
     phoneNumber: Yup.string()
       .required("Phone Number is required")

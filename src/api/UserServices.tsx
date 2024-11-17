@@ -18,6 +18,18 @@ export const signupStudentAccount = async (userData: Record<string, any>) => {
   }
 };
 
+export const login = async (loginData : Record<string , any> ) =>{
+  try {
+    const response = await axiosInstance.post("/login", loginData);
+    return response.data;
+  } catch (error: any) {
+    console.log(error)
+    throw new Error(error.response.data.message);
+  }
+  
+}
+
+
 export const signupInstructorAccount = async (
   userData: Record<string, any>
 ) => {
