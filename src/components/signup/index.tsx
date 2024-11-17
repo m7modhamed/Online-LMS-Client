@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./signup.module.css";
 import { signupStudentAccount } from "../../api/UserServices";
-import * as Yup from 'yup';
+import { ValidationSchema } from "./validationSchema";
 
 export const SignUp = () => {
  
@@ -40,27 +40,6 @@ export const SignUp = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const validateForm = (userData: Record<string, any>): IUserDataError => {
-    const errors: IUserDataError = {};
-
-    if (!userData.firstName) {
-      errors.firstName = "First Name is required";
-    }
-    if (!userData.lastName) {
-      errors.lastName = "Last Name is required";
-    }
-    if (!userData.email || !/^\S+@\S+\.\S+$/.test(userData.email)) {
-      errors.email = "A valid Email is required";
-    }
-    if (!userData.password || userData.password.length < 10) {
-      errors.password = "A valid password is required";
-    }
-    if (!userData.phoneNumber || userData.phoneNumber.length < 10) {
-      errors.phoneNumber = "A valid Phone Number is required";
-    }
-
-    return errors;
-  };
 
   const resetform = () => {
     setUserData(initialState);
@@ -84,66 +63,77 @@ export const SignUp = () => {
   const onChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name , value } = event.target;
-    
+    const { name, value } = event.target;
+  
     setUserData((prevUserData) => {
       const updatedUserData = { ...prevUserData, [name]: value };
   
-      // Validate the updated data
-      const errors = validateForm(updatedUserData);
+      // Validate the field on change using Yup schema
+      ValidationSchema
+        .validateAt(name, updatedUserData)
+        .then(() => {
+          setUserDataError((prevUserDataError) => ({
+            ...prevUserDataError,
+            [name]: "",
+          }));
+        })
+        .catch((err) => {
+          setUserDataError((prevUserDataError) => ({
+            ...prevUserDataError,
+            [name]: err.message,
+          }));
+        });
   
-
-      // Update userDataError state if there's an error
-      setUserDataError((prevUserDataError) => ({
-        ...prevUserDataError , [name]: errors[name] || "",
-      }));
-
       return updatedUserData;
     });
   };
+  
   
 
   const handleSubmit = async () => {
     setErrorMessage("");
     setSuccessMessage("");
+    setIsLoading(true);
+  
     try {
-      const errors = validateForm(userData);
-
-      if (Object.keys(errors).length > 0) {
-        setUserDataError(errors);
-        return;
-      }
-      setIsLoading(true);
-      //call endpoint
+      // Validate using Yup schema
+      await ValidationSchema.validate(userData, { abortEarly: false });
+  
+      // Call API if validation passes
       const response = await signupStudentAccount(userData);
+
       setIsLoading(false);
       setSuccessMessage(response);
       resetform();
     } catch (error: any) {
       setIsLoading(false);
-      setUserDataError(initialState);
-
-      try {
-        const errorObj = JSON.parse(error.message);
-
-        if (typeof errorObj === "object" && errorObj !== null) {
-
-          setUserDataError(errorObj);
+  
+      // If it's a Yup validation error
+      if (error.name === "ValidationError") {
+        const errors: IUserDataError = {};
+        error.inner.forEach((err: any) => {
+          if (err.path) {
+            errors[err.path as keyof IUserDataError] = err.message;
+          }
+        });
+        setUserDataError(errors);
+      } else {
+        // Handle server-side errors
+        try {
+          const errorObj = JSON.parse(error.message);
+          if (typeof errorObj === "object" && errorObj !== null) {
+            setUserDataError(errorObj);
+          }
+        } catch (parseError) {
+          setErrorMessage(error.message);
         }
-      } catch (parsError: any) {
-        setErrorMessage(error.message);
       }
     }
   };
+  
 
-
-  // const schema = Yup.object().shape({
-  //   firstName: Yup.string().required().min(3).max(15),
-  //   lastName:  Yup.string().required().min(3).max(15),
-  //   email: Yup.string().required().email(),
-  //   password: Yup.string().required().min(10).max(128),
-  //   phoneNumber: Yup.string().required().min(1).max(15),
-  // });
+  
+  
   
   return (
     <>
