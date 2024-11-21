@@ -1,15 +1,27 @@
-import { Outlet } from 'react-router-dom'
+import { useEffect } from 'react'
 import './App.css'
-import Navbar from './components/navbar'
+import { getUserFromToken } from './Authentication/jwtDecode';
 
 function App() {
 
 
+  // useEffect(()=>{
+  //   const decoded = getUserFromToken();
+  //   console.log(decoded);
+  // },[])
 
   return (
     <>
-    <Navbar/>
-    <Outlet/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h1 >main page </h1>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const ValidationSchema = Yup.object().shape({
+export const SignupValidationSchema = Yup.object().shape({
     firstName: Yup.string()
       .required("First Name is required")
       .min(3, "First Name must be at least 3 characters")
@@ -41,4 +41,42 @@ export const ValidationSchema = Yup.object().shape({
         /^[^\s]+$/,
         "Phone Number must not contain any whitespace"
       ),
+  });
+
+
+export const BusinessSignupValidationSchema = SignupValidationSchema.shape({
+  specialization: Yup.string()
+    .required("Specialization is required")
+    .min(3, "Specialization must be at least 3 characters")
+    .max(25, "Specialization can't exceed 25 characters"),
+
+  aboutMe: Yup.string()
+    .min(25, "About Me must be at least 25 characters")
+    .max(500, "About Me can't exceed 500 characters"),
+
+  linkedinUrl: Yup.string()
+    .url("Invalid LinkedIn URL")
+    .nullable(),
+
+  githubUrl: Yup.string()
+    .url("Invalid GitHub URL")
+    .nullable(),
+
+  facebookUrl: Yup.string()
+    .url("Invalid Facebook URL")
+    .nullable(),
+
+  twitterUrl: Yup.string()
+    .url("Invalid Twitter URL")
+    .nullable(),
+});
+
+  export const loginValidationSchema = Yup.object().shape({
+    email: Yup.string()
+      .required("Email is required")
+      .email("Invalid email format"),
+  
+    password: Yup.string()
+      .required("Password is required"),
+
   });

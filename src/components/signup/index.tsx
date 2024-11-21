@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./signup.module.css";
 import { signupStudentAccount } from "../../api/UserServices";
-import { ValidationSchema } from "./validationSchema";
+import { SignupValidationSchema } from "./validationSchema";
 
 export const SignUp = () => {
   interface IUserData {
@@ -73,7 +73,7 @@ export const SignUp = () => {
       const updatedUserData = { ...prevUserData, [name]: value };
 
       // Validate the field on change using Yup schema
-      ValidationSchema.validateAt(name, updatedUserData)
+      SignupValidationSchema.validateAt(name, updatedUserData)
         .then(() => {
           setUserDataError((prevUserDataError) => ({
             ...prevUserDataError,
@@ -101,7 +101,7 @@ export const SignUp = () => {
 
     try {
       // Validate using Yup schema
-      await ValidationSchema.validate(userData, { abortEarly: false });
+      await SignupValidationSchema.validate(userData, { abortEarly: false });
 
       // Call API if validation passes
       const response = await signupStudentAccount(userData);
@@ -111,7 +111,7 @@ export const SignUp = () => {
       resetform();
     } catch (error: any) {
       setIsLoading(false);
-
+      console.log(Object.values(error));
       // If it's a Yup validation error
       if (error.name === "ValidationError") {
         const errors: IUserDataError = {};

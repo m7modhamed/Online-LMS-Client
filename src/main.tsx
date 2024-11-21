@@ -6,12 +6,21 @@ import { RouterProvider , createBrowserRouter } from 'react-router-dom'
 import { SignUp } from './components/signup/index.tsx'
 import { Login } from './components/login/index.tsx'
 import { SignupBusinessAccount } from './components/signupBusinessAccount/index.tsx'
+import Layout from './Layout.tsx'
+import { VerifyEmail } from './components/verifyEmail/index.tsx'
+import ForgotPassword from './components/ForgotPassword/index.tsx'
+import { ResetPassword } from './components/ResetPassword/index.tsx'
+import { AuthProvider } from './Authentication/AuthContext.tsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
+    element: <Layout/>,
     children:[
+      {
+        path : "/",
+        element : <App/>
+      },
       {
         path: "/signup",
         element : <SignUp/>
@@ -24,12 +33,27 @@ const router = createBrowserRouter([
         path : "/businessAccount",
         element : <SignupBusinessAccount/>
       },
+      {
+        path : "/verifyEmail",
+        element : <VerifyEmail/>
+      },
+      {
+        path : '/forgotPassword',
+        element : <ForgotPassword/>
+      },
+      {
+        path : '/resetPassword',
+        element : <ResetPassword/>
+      }
+
     ]
   }
 ]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <AuthProvider>
     <RouterProvider router={router}  />
+    </AuthProvider>
   </StrictMode>,
 )
