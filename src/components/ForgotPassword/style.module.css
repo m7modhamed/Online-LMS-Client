@@ -1,0 +1,6 @@
+.alertBox {
+    min-width: 250px;
+    max-width: 400px !important;
+    word-wrap: break-word;
+    margin: 10px auto;
+  }

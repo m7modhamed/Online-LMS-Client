@@ -1,0 +1,81 @@
+.container {
+    height: 100vh;
+    min-height: 80vh;
+    margin : auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ContentContainer{
+    background-color: var(--primary-color);
+    margin: auto;
+    border-radius: 10px;
+    padding: 25px;
+    filter: drop-shadow(0px 30px 20px rgba(0, 0, 0, 0.596));
+    text-align: center;
+    width: 90%; /* Set a default width relative to the screen */
+    max-width: 800px; /* Add a maximum width for larger screens */
+    min-width: 300px; /* Ensure the container doesn't shrink too much */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+
+}
+
+.header{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+img{
+   width: 400px;
+}
+
+.footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.formContainer form {
+    margin: 20px 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap ;
+    gap: 25px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .formContainer form *{
+    max-width: 250px;
+  }
+  
+  .textFieldLabel {
+    color: var(--text-color) !important;
+  }
+  
+  .textFieldInput {
+    color: var(--text-color) !important;
+  }
+  
+  .MuiOutlinedInput-root {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: white !important;
+  }
+  
+  .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: white !important;
+  }
+  
+  .MuiInputLabel-root.Mui-focused {
+    color: white !important;
+  }
