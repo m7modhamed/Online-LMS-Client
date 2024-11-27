@@ -167,24 +167,26 @@ export const SignupBusinessAccount = () => {
           <h1>Welcome</h1>
           <h4>Please Log in or Create Account</h4>
           <form>
-            {errorMessage && (
-              <Alert
-                className={styles.alertBox}
-                variant="filled"
-                severity="error"
-              >
-                {errorMessage}
-              </Alert>
-            )}
-            {successMessage && (
-              <Alert
-                className={styles.alertBox}
-                variant="filled"
-                severity="success"
-              >
-                {successMessage}
-              </Alert>
-            )}
+            <div className={styles.formMessage}>
+              {errorMessage && (
+                <Alert
+                  className={styles.alertBox}
+                  variant="filled"
+                  severity="error"
+                >
+                  {errorMessage}
+                </Alert>
+              )}
+              {successMessage && (
+                <Alert
+                  className={styles.alertBox}
+                  variant="filled"
+                  severity="success"
+                >
+                  {successMessage}
+                </Alert>
+              )}
+            </div>
             <TextField
               sx={inputStyles}
               className={styles.textField}

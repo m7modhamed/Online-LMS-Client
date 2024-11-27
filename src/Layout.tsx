@@ -2,10 +2,13 @@ import { Outlet } from 'react-router-dom'; // To render the current route's comp
 import Navbar from './components/navbar';
 
 const Layout = () => {
+
+  const navbarHeight = '80px'; // Adjust to match the navbar's actual height
+
   return (
     <div>
       <Navbar /> 
-      <main style={{ padding: '20px' }}>
+      <main style={{marginTop: navbarHeight, minHeight: '85vh' , display : 'flex'}}>
         <Outlet /> 
       </main>
     </div>

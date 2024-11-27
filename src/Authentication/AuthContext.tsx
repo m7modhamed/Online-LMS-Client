@@ -1,11 +1,12 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { getUserFromToken } from "./jwtDecode";
+import { useNavigate } from "react-router-dom";
 
 // Create AuthContext
 
 interface AuthContextType {
   user: Record<string, any> | null;
-  login: (token: string) => void;
+  login: (token: string, callback?: (user: Record<string, any>) => void) => void;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -28,10 +29,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   // Save token and user details on login
-  const login = (token: string) => {
+const login = (token: string, callback?: (user: Record<string, any>) => void) => {
     localStorage.setItem("token", token);
     const user = getUserFromToken(); // Decode token to get user details
     setUser(user);
+
+    if (callback && user) {
+      callback(user);
+    }
   };
 
   // Check if user is authenticated
@@ -41,6 +46,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
+    
   };
 
   return (

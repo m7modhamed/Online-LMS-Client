@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
+import logo from '../../images/logo.png' // Adjust relative path based on folder structure
 
 function CustomIcon() {
   return (
@@ -7,11 +8,11 @@ function CustomIcon() {
       sx={{
         display: { xs: 'none', md: 'flex' },
         mr: 1,
-        width: 75, // Adjust the width as needed
-        height: 75, // Adjust the height as needed
+        width: 75,
+        height: 75,
       }}
     >
-      <img src="src/images/logo.png" alt="custom-icon" style={{ width: '100%', height: '100%' }} />
+      <img src={logo} alt="icon" style={{ width: '100%', height: '100%' }} />
     </Box>
   );
 }

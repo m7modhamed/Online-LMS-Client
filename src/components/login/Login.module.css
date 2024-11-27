@@ -6,20 +6,33 @@
   
   .container {
     width: 80%;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
     align-content: center;
-    margin: 75px auto;
+    
+    margin: auto;
     gap: 50px;
   }
   
   .info {
     color: var(--text-color);
-    margin: 80px 0 0 0;
     text-align: center;
+    display: flex;
+    align-items: center;
+    
+    white-space: break-spaces;
   }
 
+  @media (max-width : 813px){
+    .info{
+      margin:50px 0  0;
+
+    }
+    .formContainer{
+      margin-bottom: 50px;
+    }
+  }
   .info h1{
     text-shadow: 5px 2px 5px var(--primary-color);
   }
@@ -59,12 +72,15 @@
   
   .textFieldInput {
     color: var(--text-color) !important;
+    width: 80% !important;
   }
   
-  .textField {
+  /* .textField {
     width: 100%;
-    max-width: 400px; /* Limit the width of input fields */
-  }
+    max-width: 400px; 
+  } */
+
+ 
   
   .link {
     margin-top: 10px;

@@ -11,7 +11,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import "./style.css";
 import { Link } from "react-router-dom";
 import CustomIcon from "./CustomIcon";
@@ -19,7 +18,6 @@ import { useAuth } from "../../Authentication/AuthContext";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
-
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -42,22 +40,26 @@ function Navbar() {
 
   const { user, logout, isAuthenticated } = useAuth();
 
-  const handleClickUserMenuItem = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+  const handleClickUserMenuItem = (
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  ) => {
     const value = event.currentTarget.getAttribute("data-value");
 
-    if(value === 'Logout'){
+    if (value === "Logout") {
       console.log(value);
       logout();
     }
-    
-  
+
     setAnchorElUser(null);
   };
 
-
+  console.log(user);
 
   return (
-    <AppBar sx={{ backgroundColor: "var(--primary-color)" }} position="fixed">
+    <AppBar
+      sx={{ backgroundColor: "var(--primary-color)"  , height: '80px'}}
+      position="fixed"
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link to={"/"}>
@@ -120,7 +122,6 @@ function Navbar() {
           </Box>
 
           <Link to={"/"}>
-
             <Typography
               variant="h5"
               noWrap
@@ -153,12 +154,18 @@ function Navbar() {
 
           {isAuthenticated ? (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <h5>{`${user?.firstName}  ${user?.lastName}`}</h5>
+              <div className="profile-icon">
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src={`https://via.placeholder.com/40?text=${user?.firstName.charAt(0).toUpperCase()}`}
+                      // src={`https://via.placeholder.com/40?text=M`}
+                    />
+                  </IconButton>
+                </Tooltip>
+                <h5>{`${user?.firstName}  ${user?.lastName}`}</h5>
+              </div>
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"
@@ -176,8 +183,12 @@ function Navbar() {
                 onClose={handleClickUserMenuItem}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} >
-                    <Typography data-value={setting}  onClick={(event)=>handleClickUserMenuItem(event)} sx={{ textAlign: "center" }}>
+                  <MenuItem key={setting}>
+                    <Typography
+                      data-value={setting}
+                      onClick={(event) => handleClickUserMenuItem(event)}
+                      sx={{ textAlign: "center" }}
+                    >
                       {setting}
                     </Typography>
                   </MenuItem>

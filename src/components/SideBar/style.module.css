@@ -1,0 +1,108 @@
+/* General Sidebar Styling */
+.sidebarContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: calc(100vh - 80px);
+  background-color: #1a202c;
+  padding: 20px;
+  color: #ffffff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  position: fixed;
+
+}
+
+/* Logo Section */
+.logoSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.logoText {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e2e8f0;
+}
+
+/* Navigation List */
+.navList {
+  list-style: none;
+  padding: 0;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #e2e8f0;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.navLink:hover {
+  background-color: #2d3748;
+  transform: translateX(10px);
+}
+
+.icon {
+  font-size: 24px;
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Footer Section */
+.footer {
+  margin-top: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebarContainer {
+    width: 80px;
+    padding: 10px;
+  }
+
+  .logoSection {
+    display: none;
+  }
+
+  .navLink {
+    justify-content: center;
+  }
+
+  .label {
+    display: none;
+  }
+
+  .icon {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebarContainer {
+    width: 60px;
+  }
+
+  .icon {
+    font-size: 24px;
+  }
+}

@@ -11,6 +11,9 @@ import { VerifyEmail } from './components/verifyEmail/index.tsx'
 import ForgotPassword from './components/ForgotPassword/index.tsx'
 import { ResetPassword } from './components/ResetPassword/index.tsx'
 import { AuthProvider } from './Authentication/AuthContext.tsx'
+import {InstructorDashboard} from './components/InstructorDashboard/InstructorDashboard.tsx'
+import {CreateCourse} from './components/CreateCourse/CreateCourse.tsx'
+import { InstructorCourses } from './components/InstructorCourses/InstructorCourses.tsx'
 
 const router = createBrowserRouter([
   {
@@ -44,10 +47,26 @@ const router = createBrowserRouter([
       {
         path : '/resetPassword',
         element : <ResetPassword/>
+      },
+      {
+        path : '/instructor-dashboard',
+        element : <InstructorDashboard/>,
+        children :[{
+          path : '/instructor-dashboard/createCourse' , 
+          element : <CreateCourse/>
+        }
+      ,{
+        path : '/instructor-dashboard/myCourses',
+        element : <InstructorCourses/>
       }
-
     ]
-  }
+      },
+     
+     
+    ]
+  }, 
+ 
+  
 ]);
 
 createRoot(document.getElementById('root')!).render(

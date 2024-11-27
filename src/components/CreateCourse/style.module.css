@@ -1,0 +1,84 @@
+.textFieldLabel {
+  color: var(--text-color) !important;
+}
+
+.textFieldInput {
+  color: var(--text-color) !important;
+
+}
+
+/* General container styles */
+.container {
+  max-width: 700px;
+  min-width: fit-content;
+  text-wrap: nowrap;
+  margin: auto;
+  padding: 24px;
+  background-color: #1a202c;
+  border-radius: 15px;
+  box-shadow: 3;
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.8));
+}
+
+/* Typography styles */
+.heading {
+  text-align: center;
+
+}
+
+.subheading {
+  margin-top: 16px;
+}
+
+.formField {
+  margin: 8px 0;
+ 
+}
+
+/* Grid layout styles for different screen sizes */
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+
+.gridItem {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fab button (Add Icon) */
+.fabButton {
+  margin: 0 auto !important;
+}
+
+/* Submit button styles */
+.submitButton {
+  grid-column: span 2;
+  display: flex;
+  justify-content: center;
+}
+
+.submitButton button {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.submitButton.sm button {
+  width: 50%;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .gridContainer {
+    display: block;
+  }
+  
+}
+

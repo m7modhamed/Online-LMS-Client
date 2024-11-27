@@ -5,11 +5,9 @@ import styles from "./Login.module.css";
 import { loginValidationSchema } from "../signup/validationSchema";
 import { login } from "../../api/UserServices";
 import ForgotPassword from "../ForgotPassword";
-import { getUserFromToken } from "../../Authentication/jwtDecode";
 import { useAuth } from "../../Authentication/AuthContext";
 
 export const Login = () => {
-
   const initialState = {
     email: "",
     password: "",
@@ -27,11 +25,10 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
-  const { login: authLogin } = useAuth(); // Get login function from AuthContext
-
+  const { login: authLogin, user, logout, isAuthenticated } = useAuth();
 
   const [userData, setUserData] = useState<IUserData>(initialState);
-  // const [token , useToken] = useState<string>(''); 
+  // const [token , useToken] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState("");
   const [userDataError, setUserDataError] = useState<IUserDataError>();
   const [isLoading, setIsLoading] = useState(false);
@@ -87,14 +84,28 @@ export const Login = () => {
       const response = await login(userData);
 
       const token = response.token;
-     
-       // Call login method from AuthContext to save token and set user
-       authLogin(token);
 
-   
+      // Call login method from AuthContext to save token and set user
+      authLogin(token, (user) => {
+        const userRole = user.role; // Ensure `user` is updated
+        console.log(userRole)
+        switch (userRole) {
+          case "ROLE_ADMIN":
+            navigate("/admin-dashboard");
+            break;
+            case "ROLE_INSTRUCTOR":
+            navigate("/instructor-dashboard");
+            break;
+          case "ROLE_USER":
+            navigate("/user-dashboard");
+            break;
+          default:
+            navigate("/");
+        }
+      });
+  
       setIsLoading(false);
       resetform();
-      navigate("/");
     } catch (error: any) {
       if (error.name === "ValidationError") {
         const errors: IUserDataError = {};
@@ -105,7 +116,6 @@ export const Login = () => {
         });
         setUserDataError(errors);
       } else {
-
         setErrorMessage(error.message);
       }
       setIsLoading(false);
@@ -124,6 +134,7 @@ export const Login = () => {
         borderColor: "white",
       },
     },
+     width: '70%'
   };
 
   return (
@@ -151,7 +162,7 @@ export const Login = () => {
               className: styles.textFieldLabel,
             }}
             InputProps={{
-              classes: { input: styles.textFieldInput },
+              classes: { input: styles.textFieldInput  },
             }}
             label="Email"
             onChange={onChangeHandler}

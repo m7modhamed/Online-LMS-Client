@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./signup.module.css";
 import { signupStudentAccount } from "../../api/UserServices";
-import { SignupValidationSchema } from "./validationSchema";
+import { SignupValidationSchema } from "./ValidationSchema";
 
 export const SignUp = () => {
   interface IUserData {
@@ -59,6 +59,7 @@ export const SignUp = () => {
         borderColor: "white",
       },
     },
+    // width: '80% !important'
   };
 
   const onChangeHandler = (
@@ -202,7 +203,7 @@ export const SignUp = () => {
             />
 
             <TextField
-              sx={inputStyles}
+              sx={{ ...inputStyles, gridColumn: "1/-1" }}
               InputLabelProps={{
                 className: styles.textFieldLabel,
               }}
@@ -216,6 +217,23 @@ export const SignUp = () => {
               variant="outlined"
               error={!!userDataError.email}
               helperText={userDataError.email || ""}
+            />
+
+            <TextField
+              sx={{ ...inputStyles, gridColumn: "1/-1" }}
+              InputLabelProps={{
+                className: styles.textFieldLabel,
+              }}
+              InputProps={{ classes: { input: styles.textFieldInput } }}
+              label="Phone Number"
+              onChange={(event) => {
+                onChangeHandler(event);
+              }}
+              value={userData.phoneNumber}
+              name="phoneNumber"
+              variant="outlined"
+              error={!!userDataError.phoneNumber}
+              helperText={userDataError.phoneNumber || ""}
             />
 
             <TextField
@@ -253,32 +271,17 @@ export const SignUp = () => {
               error={!!userDataError.confirmPassword}
               helperText={userDataError.confirmPassword || ""}
             />
+            
+            <div className={styles.formFooter}>
+              {!isLoading && (
+                <Button onClick={() => handleSubmit()} variant="contained">
+                  Sign up
+                </Button>
+              )}
+              <Link to="/login">Already have an account ?</Link>
 
-            <TextField
-              sx={inputStyles}
-              InputLabelProps={{
-                className: styles.textFieldLabel,
-              }}
-              InputProps={{ classes: { input: styles.textFieldInput } }}
-              label="Phone Number"
-              onChange={(event) => {
-                onChangeHandler(event);
-              }}
-              value={userData.phoneNumber}
-              name="phoneNumber"
-              variant="outlined"
-              error={!!userDataError.phoneNumber}
-              helperText={userDataError.phoneNumber || ""}
-            />
-
-            <Link to="/login">Already have an account ?</Link>
-
-            {!isLoading && (
-              <Button onClick={() => handleSubmit()} variant="contained">
-                Sign up
-              </Button>
-            )}
-            {isLoading && <CircularProgress />}
+              {isLoading && <CircularProgress />}
+            </div>
           </form>
         </div>
       </div>
