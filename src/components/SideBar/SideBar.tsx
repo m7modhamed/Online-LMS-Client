@@ -17,14 +17,14 @@ export const SideBar = () => {
   return (
     <div className={styles.sidebarContainer}>
       {/* Logo Section */}
-      <div className={styles.logoSection}>
+      {/* <div className={styles.logoSection}>
         <Avatar
           alt="Instructor Avatar"
           src="/avatar.png"
           className={styles.avatar}
         />
         <h2 className={styles.logoText}>{user?.firstName} {user?.lastName}</h2>
-      </div>
+      </div> */}
 
       {/* Navigation Links */}
       <ul className={styles.navList}>
@@ -41,7 +41,7 @@ export const SideBar = () => {
           </Link>
         </li>
         <li>
-          <Link to={"/instructor-dashboard/myCourses"} className={styles.navLink}>
+          <Link to={"/instructor-dashboard/courses"} className={styles.navLink}>
             <ListAltIcon className={styles.icon} />
             <span className={styles.label}>My Courses</span>
           </Link>

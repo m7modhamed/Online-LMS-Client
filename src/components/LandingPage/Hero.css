@@ -1,0 +1,49 @@
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--padding) 2rem;
+    background-color: var(--background-color);
+  }
+  
+  .hero-text {
+    max-width: 50%;
+  }
+  
+  .promo-text {
+    color: var(--primary-color);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-text);
+  }
+  
+  .hero h1 {
+    font-size: var(--font-size-heading);
+    margin: var(--margin) 0;
+  }
+  
+  .search-bar {
+    display: flex;
+    margin-top: 1rem;
+  }
+  
+  .search-bar input {
+    padding: 0.75rem;
+    width: 70%;
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--border-radius) 0 0 0;
+  }
+  
+  .search-btn {
+    padding: 0.75rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    cursor: pointer;
+  }
+  
+  .features span {
+    margin-right: 1rem;
+    font-weight: var(--font-weight-bold);
+  }
+  

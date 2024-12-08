@@ -217,23 +217,26 @@ export const CreateCourse: React.FC = () => {
   const inputStyles = {
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "white",
+        borderColor: "#757575",
       },
       "&:hover fieldset": {
-        borderColor: "white",
+        borderColor: "#757575",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "white",
+        borderColor: "#757575",
       },
+      
     },
+    
+    
   };
 
   return (
     <Box className={styles.container}>
-      <Typography className={styles.heading} variant="h4" gutterBottom>
+      <Typography className={styles.heading} variant="h3" gutterBottom>
         Create New Course
       </Typography>
-
+      <br/>
       <Box className={styles.gridContainer}>
         {/* Left Section: Form Fields */}
         <Box className={styles.gridItem}>
@@ -323,14 +326,16 @@ export const CreateCourse: React.FC = () => {
               multiline
               rows={4.5}
               margin="normal"
+              
               error={!!courseDataError?.description}
               helperText={courseDataError?.description || ""}
             />
           </form>
         </Box>
+        
 
         {/* Right Section: Prerequisites Fields */}
-        <Box className={styles.gridItem}>
+        <Box  className={styles.gridItem}>
           <Typography className={styles.subheading} variant="h6" gutterBottom>
             Prerequisites
           </Typography>
@@ -346,7 +351,7 @@ export const CreateCourse: React.FC = () => {
                 InputProps={{
                   classes: { input: styles.textFieldInput },
                 }}
-                sx={inputStyles}
+                sx={{...inputStyles }}
                 name="prerequisite"
                 fullWidth
                 label={`Prerequisite ${index + 1}`}

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import './App.css'
 import { getUserFromToken } from './Authentication/jwtDecode';
+import Hero from './components/LandingPage/Hero';
 
 function App() {
 

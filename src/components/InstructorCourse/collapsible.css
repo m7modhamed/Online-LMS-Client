@@ -1,0 +1,10 @@
+.Collapsible{
+    color: black;
+    text-align: center;
+  }
+
+  .Collapsible__trigger{
+    background-color: aqua;
+    display: block;
+  }
+

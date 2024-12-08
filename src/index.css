@@ -1,7 +1,7 @@
 :root {
 
-  --Background-color: #d4d5db;
-  --primary-color: #0F292F;
+  --Background-color: #eaeaee;
+  --primary-color: #193C40;
   --text-color: #fff;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -20,6 +20,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
 
 a {
   font-weight: 500;

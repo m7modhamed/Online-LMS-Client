@@ -1,0 +1,42 @@
+
+
+.container {
+    margin: 25px auto; /* Center the container horizontally with auto margin */
+    padding: 24px;
+   
+    border-radius: 15px;
+    box-shadow: 3;
+    
+      /* Ensure no content overflows */
+    overflow: hidden;
+  
+    /* Prevent horizontal scrolling due to children exceeding width */
+    width: calc(100% - 48px); /* 24px padding left + right */
+    box-sizing: border-box; /* Include padding in width calculation */
+  }
+  
+.heading {
+    border-bottom: 2px solid var(--primary-color);
+    font-weight: bold !important;
+    color: var(--primary-color);
+  }
+
+  .sectionContainer{
+    background-color: rgb(255, 255, 255);
+    padding: 5px;
+    
+  }
+  .sectionHeading{
+    color: var(--primary-color);
+    font-weight: bold !important;
+
+    text-align: center;
+  }
+
+  .sectionContent{
+    min-height: 100px;
+    background-color: #eaeaee;
+    display: flex;
+    justify-content: center;
+    
+  }

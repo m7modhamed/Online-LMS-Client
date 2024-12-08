@@ -1,78 +1,80 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
-import { RouterProvider , createBrowserRouter } from 'react-router-dom'
-import { SignUp } from './components/signup/index.tsx'
-import { Login } from './components/login/index.tsx'
-import { SignupBusinessAccount } from './components/signupBusinessAccount/index.tsx'
-import Layout from './Layout.tsx'
-import { VerifyEmail } from './components/verifyEmail/index.tsx'
-import ForgotPassword from './components/ForgotPassword/index.tsx'
-import { ResetPassword } from './components/ResetPassword/index.tsx'
-import { AuthProvider } from './Authentication/AuthContext.tsx'
-import {InstructorDashboard} from './components/InstructorDashboard/InstructorDashboard.tsx'
-import {CreateCourse} from './components/CreateCourse/CreateCourse.tsx'
-import { InstructorCourses } from './components/InstructorCourses/InstructorCourses.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { SignUp } from "./components/signup/index.tsx";
+import { Login } from "./components/login/index.tsx";
+import { SignupBusinessAccount } from "./components/signupBusinessAccount/index.tsx";
+import Layout from "./Layout.tsx";
+import { VerifyEmail } from "./components/verifyEmail/index.tsx";
+import ForgotPassword from "./components/ForgotPassword/index.tsx";
+import { ResetPassword } from "./components/ResetPassword/index.tsx";
+import { AuthProvider } from "./Authentication/AuthContext.tsx";
+import { InstructorDashboard } from "./components/InstructorDashboard/InstructorDashboard.tsx";
+import { CreateCourse } from "./components/CreateCourse/CreateCourse.tsx";
+import { InstructorCourses } from "./components/InstructorCourses/InstructorCourses.tsx";
+import InstructorCourse from "./components/InstructorCourse/InstructorCourse.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout/>,
-    children:[
+    element: <Layout />,
+    children: [
       {
-        path : "/",
-        element : <App/>
+        path: "/",
+        element: <App />,
       },
       {
         path: "/signup",
-        element : <SignUp/>
+        element: <SignUp />,
       },
       {
         path: "/login",
-        element : <Login/>
+        element: <Login />,
       },
       {
-        path : "/businessAccount",
-        element : <SignupBusinessAccount/>
+        path: "/businessAccount",
+        element: <SignupBusinessAccount />,
       },
       {
-        path : "/verifyEmail",
-        element : <VerifyEmail/>
+        path: "/verifyEmail",
+        element: <VerifyEmail />,
       },
       {
-        path : '/forgotPassword',
-        element : <ForgotPassword/>
+        path: "/forgotPassword",
+        element: <ForgotPassword />,
       },
       {
-        path : '/resetPassword',
-        element : <ResetPassword/>
+        path: "/resetPassword",
+        element: <ResetPassword />,
       },
       {
-        path : '/instructor-dashboard',
-        element : <InstructorDashboard/>,
-        children :[{
-          path : '/instructor-dashboard/createCourse' , 
-          element : <CreateCourse/>
-        }
-      ,{
-        path : '/instructor-dashboard/myCourses',
-        element : <InstructorCourses/>
-      }
-    ]
+        path: "/instructor-dashboard",
+        element: <InstructorDashboard />,
+        children: [
+          {
+            path: "/instructor-dashboard/createCourse",
+            element: <CreateCourse />,
+          },
+          {
+            path: "/instructor-dashboard/courses",
+            element: <InstructorCourses />,
+          },
+          {
+            path: "/instructor-dashboard/courses/:courseId",
+            element: <InstructorCourse />,
+          },
+        ],
       },
-     
-     
-    ]
-  }, 
- 
-  
+    ],
+  },
 ]);
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
-    <RouterProvider router={router}  />
+      <RouterProvider router={router} />
     </AuthProvider>
-  </StrictMode>,
-)
+  </StrictMode>
+);

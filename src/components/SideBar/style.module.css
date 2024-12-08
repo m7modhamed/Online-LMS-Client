@@ -3,14 +3,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: calc(100vh - 80px);
-  background-color: #1a202c;
+  min-height: calc(100vh - 80px); /* Ensures sidebar takes the full height of the screen */
+  height: 100%;
+  background-color: var(--primary-color);
   padding: 20px;
   color: #ffffff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
-  position: fixed;
-
+   max-width: 250px;
 }
 
 /* Logo Section */
@@ -71,6 +71,7 @@
 /* Footer Section */
 .footer {
   margin-top: auto;
+  /* Keeps footer at the bottom of the sidebar */
 }
 
 /* Responsive Design */
@@ -81,7 +82,7 @@
   }
 
   .logoSection {
-    display: none;
+    display: none; /* Hides the logo section on small screens */
   }
 
   .navLink {
@@ -89,7 +90,7 @@
   }
 
   .label {
-    display: none;
+    display: none; /* Hides the label on small screens */
   }
 
   .icon {

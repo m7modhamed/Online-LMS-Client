@@ -1,56 +1,69 @@
 .textFieldLabel {
-  color: var(--text-color) !important;
+  color: #000000 !important;
+  font-size: 17px !important;
 }
 
 .textFieldInput {
-  color: var(--text-color) !important;
-
+  color: #000000 !important;
 }
 
 /* General container styles */
 .container {
-  max-width: 700px;
-  min-width: fit-content;
-  text-wrap: nowrap;
-  margin: auto;
+  margin: 25px auto; /* Center the container horizontally with auto margin */
   padding: 24px;
-  background-color: #1a202c;
+ 
   border-radius: 15px;
   box-shadow: 3;
-  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.8));
+  
+    /* Ensure no content overflows */
+  overflow: hidden;
+
+  /* Prevent horizontal scrolling due to children exceeding width */
+  width: calc(100% - 48px); /* 24px padding left + right */
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
 /* Typography styles */
 .heading {
-  text-align: center;
-
+  border-bottom: 2px solid var(--primary-color);
+  font-weight: bold !important;
+  color: var(--primary-color);
 }
 
 .subheading {
   margin-top: 16px;
+  color: #757575;
+  font-weight: bold !important;
 }
 
 .formField {
   margin: 8px 0;
- 
+  
 }
 
 /* Grid layout styles for different screen sizes */
 .gridContainer {
+  width: 80% !important;
+  margin: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr;
   gap: 16px;
-}
 
+  /* Prevent items from expanding beyond container width */
+  max-width: 100%;
+}
 
 .gridItem {
   display: flex;
   flex-direction: column;
 }
 
+
 /* Fab button (Add Icon) */
 .fabButton {
   margin: 0 auto !important;
+  background-color: var(--primary-color) !important;
+
 }
 
 /* Submit button styles */
@@ -58,15 +71,23 @@
   grid-column: span 2;
   display: flex;
   justify-content: center;
+  
 }
 
 .submitButton button {
   margin-top: 16px;
   width: 100%;
+  font-weight: bolder !important;
+  font-size: 17px;
+  height: 50px;
+  background-color: var(--primary-color);
+
 }
 
 .submitButton.sm button {
   width: 50%;
+  background-color: var(--primary-color);
+
 }
 
 
@@ -81,4 +102,3 @@ form {
   }
   
 }
-

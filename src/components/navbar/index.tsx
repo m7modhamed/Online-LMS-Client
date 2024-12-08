@@ -57,7 +57,7 @@ function Navbar() {
 
   return (
     <AppBar
-      sx={{ backgroundColor: "var(--primary-color)"  , height: '80px'}}
+      sx={{ borderBottom: "1px solid darkgray ", backgroundColor: "var(--primary-color)"  , height: '80px'}}
       position="fixed"
     >
       <Container maxWidth="xl">

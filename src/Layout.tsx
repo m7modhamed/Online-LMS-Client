@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom'; // To render the current route's component
+import {NavBar2} from './components/NavBar2/index';
 import Navbar from './components/navbar';
 
 const Layout = () => {
@@ -7,7 +8,8 @@ const Layout = () => {
 
   return (
     <div>
-      <Navbar /> 
+      {/* <NavBar2 />  */}
+      <Navbar/>
       <main style={{marginTop: navbarHeight, minHeight: '85vh' , display : 'flex'}}>
         <Outlet /> 
       </main>
