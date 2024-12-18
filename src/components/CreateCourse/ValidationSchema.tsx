@@ -21,7 +21,7 @@ export const createCourseValidationSchema = Yup.object().shape({
       Yup.string()
         .required("Each prerequisite is required") // Ensures each item is a string and required
         .min(1, "Each prerequisite must be at least 1 character long") // Minimum length for each string
-        .max(5, "Each prerequisite can't exceed 5 characters") // Maximum length for each string
+        .max(200, "Each prerequisite can't exceed 200 characters") // Maximum length for each string
     )
     .min(1, "At least one prerequisite is required") // Array must have at least one element
     .max(20, "Prerequisites can't exceed 20 items") // Array must not exceed 5 items

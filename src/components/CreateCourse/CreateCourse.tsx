@@ -6,11 +6,13 @@ import {
   Box,
   Fab,
   Autocomplete,
+  CircularProgress,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import styles from "./style.module.css"; // Import the CSS module
 import { createCourse, getCategories } from "../../api/courseServices";
 import { createCourseValidationSchema } from "./ValidationSchema";
+import { useNavigate } from "react-router-dom";
 
 interface ICourseData {
   category: {}; // Now an array of objects
@@ -35,8 +37,9 @@ export const CreateCourse: React.FC = () => {
     { description: string; id: number; name: string }[]
   >([]);
 
-
-  const [errorMessage , setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     getCategories()
@@ -72,7 +75,7 @@ export const CreateCourse: React.FC = () => {
 
     setCourseData((prevCourseData) => {
       const updatedCourseData = { ...prevCourseData, [name]: value.trim() };
-      
+
       // Validate the field on change using Yup schema
       createCourseValidationSchema
         .validateAt(name, updatedCourseData)
@@ -97,70 +100,66 @@ export const CreateCourse: React.FC = () => {
     // Update the prerequisites array in courseData state
     const updatedPrerequisites = [...courseData.prerequisites];
     updatedPrerequisites[index] = value;
-  
+
     setCourseData((prevState) => ({
       ...prevState,
       prerequisites: updatedPrerequisites,
     }));
-  
+
     // Perform validation using Yup schema
     createCourseValidationSchema
-      .validateAt('prerequisites', { prerequisites: updatedPrerequisites })  // Ensure we validate only the prerequisites array
+      .validateAt("prerequisites", { prerequisites: updatedPrerequisites }) // Ensure we validate only the prerequisites array
       .then(() => {
         // No errors, reset error state
         setCourseDataError((prevState) => ({
           ...prevState,
-          prerequisites: "",  // Ensure the key matches 'prerequisites'
+          prerequisites: "", // Ensure the key matches 'prerequisites'
         }));
       })
       .catch((err) => {
         // There was a validation error
         setCourseDataError((prevState) => ({
           ...prevState,
-          prerequisites: err.message,  // Ensure the key matches 'prerequisites'
+          prerequisites: err.message, // Ensure the key matches 'prerequisites'
         }));
       });
   };
-  
 
   const handleCategoryChange = (
     event: React.SyntheticEvent<Element, Event>,
     value: { id: number; name: string } | null
   ) => {
-  
     // Update the courseData state with the selected category
     setCourseData((prevState) => {
       const updatedCourseData = {
         ...prevState,
-        category: { id: value?.id || 0 , name: value?.name || "" }, // Update the category data
+        category: { id: value?.id || 0, name: value?.name || "" }, // Update the category data
       };
-  
+
       // Immediately validate the updated state
       createCourseValidationSchema
-        .validateAt('category', updatedCourseData)  // Validate the updated courseData
+        .validateAt("category", updatedCourseData) // Validate the updated courseData
         .then(() => {
           // No errors, reset error state
           setCourseDataError((prevState) => ({
             ...prevState,
-            category: "",  
+            category: "",
           }));
         })
         .catch((err) => {
           // There was a validation error
           setCourseDataError((prevState) => ({
             ...prevState,
-            category: err.message,  
+            category: err.message,
           }));
         });
-  
+
       // Return the updated courseData object
-      console.log('updatedCourseData' , updatedCourseData)
+      console.log("updatedCourseData", updatedCourseData);
 
       return updatedCourseData;
     });
   };
-  
-
 
   const addPrerequisite = () => {
     setCourseData((prevState) => ({
@@ -169,49 +168,52 @@ export const CreateCourse: React.FC = () => {
     }));
 
     createCourseValidationSchema
-    .validateAt('prerequisites', courseData)  // Ensure we validate only the prerequisites array
-    .then(() => {
-      // No errors, reset error state
-      setCourseDataError((prevState) => ({
-        ...prevState,
-        prerequisites: "",  // Ensure the key matches 'prerequisites'
-      }));
-    })
-    .catch((err) => {
-      // There was a validation error
-      setCourseDataError((prevState) => ({
-        ...prevState,
-        prerequisites: err.message,  // Ensure the key matches 'prerequisites'
-      }));
-    });
+      .validateAt("prerequisites", courseData) // Ensure we validate only the prerequisites array
+      .then(() => {
+        // No errors, reset error state
+        setCourseDataError((prevState) => ({
+          ...prevState,
+          prerequisites: "", // Ensure the key matches 'prerequisites'
+        }));
+      })
+      .catch((err) => {
+        // There was a validation error
+        setCourseDataError((prevState) => ({
+          ...prevState,
+          prerequisites: err.message, // Ensure the key matches 'prerequisites'
+        }));
+      });
   };
 
-  
-  
-
-  const handleSubmit =async () => {
+  const handleSubmit = async () => {
     console.log("Form Submitted", courseData);
 
+    setIsLoading(true);
     try {
-      await createCourseValidationSchema.validate(courseData, { abortEarly: false });
-
-      const response =await createCourse(courseData);
-
-      console.log(response);
-    } catch (error: any) {
-      if (error.name === "ValidationError") {
-      const errors: ICourseDataError = {};
-      error.inner.forEach((err: any) => {
-        if (err.path) {
-          errors[err.path as keyof ICourseDataError] = err.message;
-        }
+      await createCourseValidationSchema.validate(courseData, {
+        abortEarly: false,
       });
-      setCourseDataError(errors);
-      
-    }else{
-      setErrorMessage(error.message);
+
+      const newCourse = await createCourse(courseData);
+
+      console.log(newCourse);
+
+
+      navigate(`/instructor-dashboard/courses/${newCourse.id}`)
+    } catch (error: any) {
+      setIsLoading(false);
+      if (error.name === "ValidationError") {
+        const errors: ICourseDataError = {};
+        error.inner.forEach((err: any) => {
+          if (err.path) {
+            errors[err.path as keyof ICourseDataError] = err.message;
+          }
+        });
+        setCourseDataError(errors);
+      } else {
+        setErrorMessage(error.message);
+      }
     }
-  }
   };
 
   const inputStyles = {
@@ -225,10 +227,7 @@ export const CreateCourse: React.FC = () => {
       "&.Mui-focused fieldset": {
         borderColor: "#757575",
       },
-      
     },
-    
-    
   };
 
   return (
@@ -236,7 +235,7 @@ export const CreateCourse: React.FC = () => {
       <Typography className={styles.heading} variant="h3" gutterBottom>
         Create New Course
       </Typography>
-      <br/>
+      <br />
       <Box className={styles.gridContainer}>
         {/* Left Section: Form Fields */}
         <Box className={styles.gridItem}>
@@ -271,7 +270,7 @@ export const CreateCourse: React.FC = () => {
               sx={inputStyles}
               renderInput={(params) => (
                 <TextField
-                name="category"
+                  name="category"
                   {...params}
                   className={styles.formField}
                   InputLabelProps={{
@@ -326,16 +325,14 @@ export const CreateCourse: React.FC = () => {
               multiline
               rows={4.5}
               margin="normal"
-              
               error={!!courseDataError?.description}
               helperText={courseDataError?.description || ""}
             />
           </form>
         </Box>
-        
 
         {/* Right Section: Prerequisites Fields */}
-        <Box  className={styles.gridItem}>
+        <Box className={styles.gridItem}>
           <Typography className={styles.subheading} variant="h6" gutterBottom>
             Prerequisites
           </Typography>
@@ -351,7 +348,7 @@ export const CreateCourse: React.FC = () => {
                 InputProps={{
                   classes: { input: styles.textFieldInput },
                 }}
-                sx={{...inputStyles }}
+                sx={{ ...inputStyles }}
                 name="prerequisite"
                 fullWidth
                 label={`Prerequisite ${index + 1}`}
@@ -379,17 +376,20 @@ export const CreateCourse: React.FC = () => {
 
         {/* Submit Button Section */}
         <Box className={`${styles.submitButton} ${styles.sm}`}>
-          <Button
-            onClick={() => {
-              handleSubmit();
-            }}
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-          >
-            Create
-          </Button>
+          {!isLoading && (
+            <Button
+              onClick={() => {
+                handleSubmit();
+              }}
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+            >
+              Create
+            </Button>
+          )}
+          {isLoading && <CircularProgress />}
         </Box>
       </Box>
     </Box>

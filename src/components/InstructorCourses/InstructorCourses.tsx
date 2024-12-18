@@ -23,6 +23,7 @@ export const InstructorCourses = () => {
   const {user} = useAuth();
 
   useEffect(() => {
+    
     const response = getInstructorCourses(user?.id);
     response
       .then((courses) => {
@@ -32,7 +33,7 @@ export const InstructorCourses = () => {
       .catch((error) => {
         console.error("Error fetching categories:", error.message);
       });
-  }, []);
+  }, [user]);
 
   return (
     <Box className={styles.container}>
