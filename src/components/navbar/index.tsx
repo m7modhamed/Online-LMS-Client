@@ -159,9 +159,9 @@ function Navbar() {
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
                       alt="Remy Sharp"
-                      src={`https://via.placeholder.com/40?text=${user?.firstName.charAt(0).toUpperCase()}`}
-                      // src={`https://via.placeholder.com/40?text=M`}
-                    />
+                      src={user?.image}
+
+                      />
                   </IconButton>
                 </Tooltip>
                 <h5>{`${user?.firstName}  ${user?.lastName}`}</h5>

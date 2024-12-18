@@ -27,10 +27,11 @@ export interface Instructor {
   export interface Course {
     id: number;
     name: string;
+    status : string;
     description: string;
     language: string;
     prerequisites: string[];
-    sections: string[];
+    sections: Section[];
     category: Category;
     instructor: Instructor;
     createdAt: string;
@@ -41,8 +42,16 @@ export interface Instructor {
   }
 
   export interface Section{
+    id : Number
     title: string,
     description: string,
     position : Number,
+    lessons : Lesson[],
   }
   
+
+  export interface Lesson{
+    id? : Number,
+    title: string,
+    position : Number,
+  }

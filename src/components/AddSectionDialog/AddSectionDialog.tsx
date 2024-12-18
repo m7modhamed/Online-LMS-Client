@@ -48,9 +48,7 @@ export default function AddSectionDialog({
 
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
+      
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add New Section</DialogTitle>
         <DialogContent>

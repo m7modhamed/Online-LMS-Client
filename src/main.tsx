@@ -15,6 +15,7 @@ import { InstructorDashboard } from "./components/InstructorDashboard/Instructor
 import { CreateCourse } from "./components/CreateCourse/CreateCourse.tsx";
 import { InstructorCourses } from "./components/InstructorCourses/InstructorCourses.tsx";
 import InstructorCourse from "./components/InstructorCourse/InstructorCourse.tsx";
+import { AddLessonContent } from "./components/AddLessonContent/AddLessonContent.tsx";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
           {
             path: "/instructor-dashboard/courses/:courseId",
             element: <InstructorCourse />,
+          },
+          {
+            path: "/instructor-dashboard/addLessonContent/:lessonId",
+            element: <AddLessonContent />,
           },
         ],
       },

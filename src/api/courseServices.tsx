@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Section } from "../interfaces/interfaces";
+import { Lesson, Section } from "../interfaces/interfaces";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:8080",
@@ -31,54 +31,98 @@ export const getCategories = async () => {
   }
 };
 
-export const createCourse = async (course : Record<string , any>) => {
-    try {
-        const response = await axiosInstance.post("/courses" , course);
-        return response.data;
-      } catch (error: any) {
-        console.log(error);
-        throw new Error(error.response.data.message);
+export const createCourse = async (course: Record<string, any>) => {
+  try {
+    const response = await axiosInstance.post("/courses", course);
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.response.data.message);
+  }
+};
+
+export const getInstructorCourse = async (
+  instructorId: Number,
+  courseId: Number
+) => {
+  try {
+    const response = await axiosInstance.get(
+      `/instructor/${instructorId}/courses/${courseId}`
+    );
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.response.data.message);
+  }
+};
+
+export const getInstructorCourses = async (instructorId: Number) => {
+  try {
+    const response = await axiosInstance.get(
+      `/instructor/${instructorId}/courses`
+    );
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.response.data.message);
+  }
+};
+
+export const addNewSection = async (course_id: Number, section: Section) => {
+  try {
+    const response = await axiosInstance.post(
+      `courses/${course_id}/sections`,
+      section
+    );
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.response.data.message);
+  }
+};
+
+export const getCourseSections = async (course_id: Number) => {
+  try {
+    const response = await axiosInstance.get(`/courses/${course_id}/sections`);
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.response.data.message);
+  }
+};
+
+export const addNewLesson = async (sectionId: Number, lesson: Lesson) => {
+  try {
+    const response = await axiosInstance.post(
+      `sections/${sectionId}/lessons`,
+      lesson
+    );
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.response.data.message);
+  }
+};
+
+
+export const addMedia = async (lesson_id: number, file: File) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", file); // Append the file with the name 'file' as the key
+    
+    const response = await axiosInstance.post(
+      `/lessons/${lesson_id}/media`,
+      formData, // Send the formData object
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Tell the backend it's form data
+        },
       }
-};
-
-export const getInstructorCourse = async (instructorId : Number , courseId : Number) => {
-  try {
-      const response = await axiosInstance.get(`/instructor/${instructorId}/courses/${courseId}`);
-      return response.data;
-    } catch (error: any) {
-      console.log(error);
-      throw new Error(error.response.data.message);
-    }
-};
-
-
-export const getInstructorCourses = async (instructorId : Number) => {
-  try {
-      const response = await axiosInstance.get(`/instructor/${instructorId}/courses`);
-      return response.data;
-    } catch (error: any) {
-      console.log(error);
-      throw new Error(error.response.data.message);
-    }
-};
-
-
-export const addNewSection = async (course_id : Number, section : Section) => {
-  try {
-      const response = await axiosInstance.post(`courses/${course_id}/sections` , section);
-      return response.data;
-    } catch (error: any) {
-      console.log(error);
-      throw new Error(error.response.data.message);
-    }
-};
-
-export const getCourseSections = async (course_id : Number) => {
-  try {
-      const response = await axiosInstance.get(`/courses/${course_id}/sections`);
-      return response.data;
-    } catch (error: any) {
-      console.log(error);
-      throw new Error(error.response.data.message);
-    }
+    );
+    
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.response?.data?.message || 'Error uploading media');
+  }
 };
