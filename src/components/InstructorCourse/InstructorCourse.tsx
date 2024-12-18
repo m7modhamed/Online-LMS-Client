@@ -42,6 +42,7 @@ const InstructorCourse = () => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
+          flexWrap : 'wrap',
           alignItems: "center",
           borderBottom: "2px solid var(--primary-color)",
         }}

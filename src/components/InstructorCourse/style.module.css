@@ -20,3 +20,10 @@
   gap: 15px;
   margin: 20px 0;
 }
+
+@media (max-width: 900px) {
+  .courseContainer{
+    display: flex;
+    flex-direction : column-reverse
+  }
+}

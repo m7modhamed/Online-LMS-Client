@@ -167,6 +167,7 @@ export const CourseInfo = ({ course }: { course: Course }) => {
             style={{
               display: "flex",
               justifyContent: "space-around",
+              flexWrap : 'wrap',
               gap: "8px",
             }}
           >

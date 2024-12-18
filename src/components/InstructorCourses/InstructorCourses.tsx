@@ -42,8 +42,8 @@ export const InstructorCourses = () => {
       </Typography>
       <br />
       <Box className={styles.gridContainer}>
-        {courses.map((course) => (
-          <Link to={`/instructor-dashboard/courses/${course.id}`}>
+        {courses.map((course , index) => (
+          <Link key={index} to={`/instructor-dashboard/courses/${course.id}`}>
             <CourseCard course = {course} />
           </Link>
         ))}
