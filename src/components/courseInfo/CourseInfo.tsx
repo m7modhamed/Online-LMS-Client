@@ -1,11 +1,12 @@
 import React from "react";
 import { Course } from "../../interfaces/interfaces";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Avatar, Box, IconButton, Typography } from "@mui/material";
 import styles from "./style.module.css";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import { Link } from "react-router-dom";
 
 export const CourseInfo = ({ course }: { course: Course }) => {
   return (
@@ -82,15 +83,30 @@ export const CourseInfo = ({ course }: { course: Course }) => {
 
       <Box className={styles.instructorInfoContainer}>
         {/* Profile Image */}
-        {course.instructor.profileImage && (
+        {
           <Box>
-            <img
-              src={course.instructor.profileImage}
-              alt={`${course.instructor.firstName} ${course.instructor.lastName}`}
-              style={{ width: "100px", borderRadius: "50%", margin: "8px 0" }}
-            />
+            {course.instructor.profileImage ? (
+              <Link to={"/profile"}>
+                <img
+                  src={course.instructor.profileImage.imageUrl}
+                  alt={''}
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    borderRadius: "50%",
+                    margin: "auto",
+                  }}
+                />
+              </Link>
+            ) : <Avatar style={{
+              width: "150px",
+              height: "150px",
+              borderRadius: "50%",
+              margin: "auto",
+            }}/>}
           </Box>
-        )}
+        }
+
         {/* Instructor Name */}
         <Box>
           <Typography color="textPrimary" variant="h6">
@@ -139,9 +155,14 @@ export const CourseInfo = ({ course }: { course: Course }) => {
         </Box>
 
         <Box>
-          <Typography color="textPrimary" variant="h6">
-            Social Links
-          </Typography>
+          {((course.instructor.twitterUrl ||
+            course.instructor.facebookUrl ||
+            course.instructor.githubUrl ||
+            course.instructor.linkedinUrl) && (
+              <Typography color="textPrimary" variant="h6">
+                Social Links
+              </Typography>
+            ))}
           <Box
             style={{
               display: "flex",
@@ -149,26 +170,26 @@ export const CourseInfo = ({ course }: { course: Course }) => {
               gap: "8px",
             }}
           >
-            {
-              <IconButton href={course.instructor.linkedinUrl}>
+            {course.instructor.linkedinUrl && (
+              <IconButton target="_blank" href={course.instructor.linkedinUrl}>
                 <LinkedInIcon fontSize="large" />
               </IconButton>
-            }
-            {
-              <IconButton href={course.instructor.facebookUrl}>
+            )}
+            {course.instructor.facebookUrl && (
+              <IconButton target="_blank" href={course.instructor.facebookUrl}>
                 <FacebookIcon fontSize="large" />
               </IconButton>
-            }
-            {
-              <IconButton href={course.instructor.githubUrl}>
+            )}
+            {course.instructor.githubUrl && (
+              <IconButton target="_blank" href={course.instructor.githubUrl}>
                 <GitHubIcon fontSize="large" />
               </IconButton>
-            }
-            {
-              <IconButton href={course.instructor.twitterUrl}>
+            )}
+            {course.instructor.twitterUrl && (
+              <IconButton target="_blank" href={course.instructor.twitterUrl}>
                 <TwitterIcon fontSize="large" />
               </IconButton>
-            }
+            )}
           </Box>
         </Box>
       </Box>
