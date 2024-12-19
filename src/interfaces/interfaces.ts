@@ -54,4 +54,7 @@ export interface Instructor {
     id? : Number,
     title: string,
     position : Number,
+    fileResource : any[],
+    video : any,
+
   }

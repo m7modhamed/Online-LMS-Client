@@ -105,13 +105,11 @@ export const addNewLesson = async (sectionId: Number, lesson: Lesson) => {
 };
 
 
-export const addMedia = async (lesson_id: number, file: File) => {
+export const addFiles = async (lesson_id: number, formData: FormData) => {
   try {
-    const formData = new FormData();
-    formData.append("file", file); // Append the file with the name 'file' as the key
     
     const response = await axiosInstance.post(
-      `/lessons/${lesson_id}/media`,
+      `/lessons/${lesson_id}/files`,
       formData, // Send the formData object
       {
         headers: {
@@ -126,3 +124,36 @@ export const addMedia = async (lesson_id: number, file: File) => {
     throw new Error(error.response?.data?.message || 'Error uploading media');
   }
 };
+
+
+export const addVideo = async (lesson_id: number, formData: FormData) => {
+  try {
+    
+    const response = await axiosInstance.post(
+      `/lessons/${lesson_id}/video`,
+      formData, // Send the formData object
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Tell the backend it's form data
+        },
+      }
+    );
+    
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.response?.data?.message || 'Error uploading media');
+  }
+};
+
+
+export const getLesson = async (lessonId: Number) => {
+  try {
+    const response = await axiosInstance.get(`/lessons/${lessonId}`);
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.response.data.message);
+  }
+};
+

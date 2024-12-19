@@ -91,6 +91,7 @@ export const CourseInfo = ({ course }: { course: Course }) => {
                   src={course.instructor.profileImage.imageUrl}
                   alt={''}
                   style={{
+                    objectFit: 'cover',
                     width: "150px",
                     height: "150px",
                     borderRadius: "50%",
