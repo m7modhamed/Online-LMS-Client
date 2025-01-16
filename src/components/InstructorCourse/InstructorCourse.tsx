@@ -68,9 +68,7 @@ const InstructorCourse = () => {
       </Box>
 
       <Box className={styles.courseContainer}>
-        
-           
-          
+
             {course ? (
               <CourseSections course={course} />
             ) : (

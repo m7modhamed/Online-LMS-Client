@@ -42,11 +42,11 @@ export interface Instructor {
   }
 
   export interface Section{
-    id : Number
+    id? : Number
     title: string,
     description: string,
     position : Number,
-    lessons : Lesson[],
+    lessons? : Lesson[],
   }
   
 

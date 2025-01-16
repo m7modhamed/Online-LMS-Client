@@ -146,6 +146,19 @@ export const addVideo = async (lesson_id: number, formData: FormData) => {
   }
 };
 
+export const deleteVideo = async (lesson_id: number) => {
+  try {
+    
+    const response = await axiosInstance.delete(
+      `/lessons/${lesson_id}/video`
+    );
+    
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+    throw new Error(error.response?.data?.message || 'Error uploading media');
+  }
+};
 
 export const getLesson = async (lessonId: Number) => {
   try {
